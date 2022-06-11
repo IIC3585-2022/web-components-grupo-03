@@ -1,0 +1,32 @@
+{
+  "name": "web-components-grupo-03",
+  "version": "1.0.0",
+  "description": "app de juguete para aprender web components",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint --fix src/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IIC3585-2022/web-components-grupo-03.git"
+  },
+  "keywords": [
+    "web",
+    "components",
+    "lit",
+    "element"
+  ],
+  "author": "Grupo 03",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IIC3585-2022/web-components-grupo-03/issues"
+  },
+  "homepage": "https://github.com/IIC3585-2022/web-components-grupo-03#readme",
+  "dependencies": {
+    "lit": "^2.2.5"
+  },
+  "devDependencies": {
+    "eslint": "^8.17.0"
+  }
+}
