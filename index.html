@@ -7,10 +7,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/x-icon" href="public/favicon.ico">
   <title>Web components</title>
-  <script defer src="src/index.js"></script>
+  <script defer src="src/components/SellItem.js"></script>
 </head>
 
 <body>
+  <sell-item>
+    <span slot="name">Juan Valdés</span> Descomentar para cambiar nombre
+  </sell-item>
+  <sell-item name="Marie Curie"></sell-item>
+  <sell-item></sell-item>
 
 </body>
 
