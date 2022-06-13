@@ -6,33 +6,48 @@ class SellItem extends HTMLElement {
     this.shadowRoot.appendChild(template.content.cloneNode(true));
   }
 
-  toggleColor() {
-    const hello = this.shadowRoot.querySelector('h1');
-    hello.style.color = hello.style.color === 'blue' ? 'red' : 'blue';
+  toggleColor(textElement) {
+    textElement.style.color = textElement.style.color === 'blue' ? 'red' : 'blue';
   }
 
   connectedCallback() {
-    this.shadowRoot.querySelector('h1').addEventListener('click', () => {
-      this.toggleColor();
-    });
+    const title = this.shadowRoot.querySelector('.title');
+    title.addEventListener('click', () => this.toggleColor(title));
 
-
-    if ((this.name = this.getAttribute('name'))) {
-      this.shadowRoot.querySelector('#name').innerHTML = this.name;
+    if ((this.img_src = this.getAttribute('img_src'))) {
+      this.shadowRoot.querySelector('img').setAttribute('src', this.img_src);
+    }
+    if ((this.name = this.getAttribute('title'))) {
+      this.shadowRoot.querySelector('#title').innerHTML = this.name;
     }
   }
 
 }
 const template = document.createElement('template');
-template.innerHTML = `
-<h1>
-Hola <slot id="name" name="name">Mundo</slot>!
-</h1>
+template.innerHTML = /* html */`
+<div class="container">
+  <img alt="Failed to load img" />
 
+  <h4 class=title>
+  Hola <slot id="title" name="title">Mundo</slot>!
+  </h4>
+
+</div>
 
 <style>
-  h1 {
+  .container {
     border: 1px solid lightgray;
+    border-radius: 8px;
+    font-size: 12px;
+    margin: 1rem;
+    transition: 100ms ease-out;
+    width: 30ch;
+  }
+  .container:hover {
+    scale: 1.05;
+  }
+  img {
+    max-width: 30ch;
   }
 </style>
 `;

@@ -28,6 +28,12 @@
         "comma-dangle": [
             "warn",
             "always-multiline"
+        ],
+        "padded-blocks": [
+            "warn",
+            {
+                "classes": "always"
+            }
         ]
     }
 }
