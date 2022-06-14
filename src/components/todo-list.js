@@ -3,7 +3,7 @@ class TodoList extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
-    this.shadowRoot.appendChild(template.content.cloneNode(true));
+    this.shadowRoot.appendChild(todo_list_template.content.cloneNode(true));
     this.title;
     this.item1;
     this.item2;
@@ -13,55 +13,59 @@ class TodoList extends HTMLElement {
   }
 
   connectedCallback() {
-    if ((this.imgSrc = this.getAttribute('imgSrc'))) {
-      this.shadowRoot.getElementById('product-image').setAttribute('src', this.imgSrc);
-    }
     if ((this.title = this.getAttribute('title'))) {
       this.shadowRoot.getElementById('title').innerHTML = this.title;
     }
-    if ((this.price = this.getAttribute('price'))) {
-      const discount = this.getAttribute('discount') | 0;
-      this.shadowRoot.getElementById('sale-price').innerHTML = (this.price * (100 - discount) / 100).toLocaleString();
-      this.shadowRoot.getElementById('normal-price').innerHTML = (this.price).toLocaleString();
-      this.shadowRoot.getElementById('discount-tag').innerHTML = discount;
+    if ((this.item1 = this.getAttribute('item1'))) {
+      console.log(this.item1);
+      this.shadowRoot.getElementById('item1').innerHTML = this.item1;
     }
-    if ((this.rating = this.getAttribute('rating'))) {
-      this.shadowRoot.getElementById('rating').innerHTML = this.rating;
+    if ((this.item2 = this.getAttribute('item2'))) {
+      this.shadowRoot.getElementById('item2').innerHTML = this.item2;
+    }
+    if ((this.item3 = this.getAttribute('item3'))) {
+      this.shadowRoot.getElementById('item3').innerHTML = this.item3;
+    }
+    if ((this.prompt = this.getAttribute('prompt'))) {
+      this.shadowRoot.getElementById('prompt').innerHTML = this.prompt;
     }
   }
 
 }
 
-const template = document.createElement('template');
-template.innerHTML = /* html */`
+const todo_list_template = document.createElement('template');
+todo_list_template.innerHTML = /* html */`
   <div class="container">
-    <div class="img-container">
-      <img id="product-image" alt="No Image" />
+    <h1 class=title>
+      <slot id="title" name="title">ToDo-List</slot>
+    </h1>
+    <div class="items">
+      <div class="item">
+        <p class="prompt-item">
+          <slot id="item1" name="item1">First</slot>
+        </p>
+        <button id="delete-item" class="item-button" type="button">Delete</button>
+      </div>
+      <div class="item">
+        <p class="prompt-item">
+          <slot id="item2" name="item2">Second</slot>
+        </p>
+        <button id="delete-item" class="item-button" type="button">Delete</button>
+      </div>
+      <div class="item">
+        <p class="prompt-item">
+          <slot id="item3" name="item3">Third</slot>
+        </p>
+        <button id="delete-item" class="item-button" type="button">Delete</button>
+      </div>
     </div>
-    <h4 class=title>
-      <slot id="title" name="title">Mundo</slot>
-    </h4>
-    <div class="price-box">
-      <span>
-        <h3 class="sale-price">
-          $<slot id="sale-price" name="salePrice"></slot>
-        </h3>
-        <h4 class="normal-price">
-          $<slot id="normal-price" name="normalPrice"></slot>
-        </h4>
-      </span>
-      <span class="discount-tag">
-        -<slot id="discount-tag" name="discountTag">0</slot>%
-      </span>
+    <div class="add-div">
+      <h3 class="prompt-title" >
+        <slot id="prompt" name="prompt">new-item</slot>:
+      </h3>
+      <input type="text" id="new-item" placeholder="new-item" class="add-item-input" >
+      <button id="add-item" class="add-button" type="button">Add</button>
     </div>
-    <span style="display:flex;align-items:center; gap:4px">
-      <img
-        class="morty"
-        src="https://styles.redditmedia.com/t5_3bpra/styles/communityIcon_8l6jqwr58eb41.png"
-        alt="mortys"
-      />
-      <strong><slot id="rating" name="rating">0</slot></strong>
-    </span>
   </div>
   <style>
     .container {
@@ -69,12 +73,12 @@ template.innerHTML = /* html */`
       border: 1px solid lightgray;
       border-radius: 8px;
       font-size: 12px;
-      height: 45ch;
       margin: 0rem;
-      overflow-y: scroll;
       padding: 1em 1em 0.25em;
       transition: 100ms linear;
-      width: 25ch;
+      width: 60ch;
+      height:auto;
+      position: relative;
     }
     .container:hover {
       scale: 1.05;
@@ -90,38 +94,80 @@ template.innerHTML = /* html */`
       justify-content: center;
       max-width: 100%;
     }
-    .morty {
-      height: 2em;
+    .title {
+      font-size: 2em;
+      font-weight: bold;
       margin: 0;
-      transform: translateY(-2px);
+      padding: 0.5em;
+      word-wrap: break-word;
+      padding: 5px;
     }
-    .price-box {
+    .items {
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      padding: 0;
+    }
+    .item {
+      align-items: center;
+      border-bottom: 1px solid lightgray;
+      display: flex;
+      height:auto;
+      justify-content: space-between;
+      margin: 0;
+      padding: 0.5em;
+    }
+    .item:hover {
+      background-color: lightgray;
+    }
+    .item:last-child {
+      border-bottom: none;
+    }
+    .prompt-item {
+      font-size: 1em;
+      margin: 0;
+      width: 80%;
+      word-wrap: break-word;
+      padding: 10px;
+    }
+    .item-button {
+      background-color: lightgray;
+      cursor: pointer;
+      margin: 0;
+      padding: 0;
+    }
+    .item-button:hover {
+      background-color: darkgray;
+    }
+    .add-div {
       align-items: center;
       display: flex;
       justify-content: space-between;
-      margin-bottom: 1em;
+      margin: 2ch;
+      padding: 0.5em;
+      bottom: 0;
+      position: relative;
     }
-    .sale-price {
-      color: tomato;
+    .add-button {
+      background-color: lightgray;
+      cursor: pointer;
       margin: 0;
-      width: fit-content;
+      padding: 0;
+      width: 20%;
     }
-    .normal-price {
-      color: gray;
+    .add-button:hover {
+      background-color: darkgray;
+    }
+    .add-item-input {
+      margin: 2ch;
+      padding: 5px;
+      width: 60%;
+      ord-wrap: break-word;
+    }
+    .prompt-title {
       margin: 0;
-      text-decoration: line-through;
-      width: fit-content;
-    }
-    .discount-tag {
-      align-items: center;
-      background-color: tomato;
-      border-radius: 4px;
-      color: white;
-      font-weight: bold;
-      height: 50%;
-      justify-content: center;
-      padding: 4px;
-      width: fit-content;
+      width: 20%;
+      word-wrap: break-word;
     }
   </style>
   `;
