@@ -9,7 +9,11 @@ class TodoList extends HTMLElement {
     this.item2;
     this.item3;
     this.prompt;
-    this.item_count;
+    this.item_count = 4;
+  }
+
+  get observedAttributes() {
+    return ['title', 'item1', 'item2', 'item3', 'prompt'];
   }
 
   connectedCallback() {
@@ -17,7 +21,6 @@ class TodoList extends HTMLElement {
       this.shadowRoot.getElementById('title').innerHTML = this.title;
     }
     if ((this.item1 = this.getAttribute('item1'))) {
-      console.log(this.item1);
       this.shadowRoot.getElementById('item1').innerHTML = this.item1;
     }
     if ((this.item2 = this.getAttribute('item2'))) {
@@ -29,6 +32,49 @@ class TodoList extends HTMLElement {
     if ((this.prompt = this.getAttribute('prompt'))) {
       this.shadowRoot.getElementById('prompt').innerHTML = this.prompt;
     }
+    // give delete button delete function
+    this.shadowRoot.querySelectorAll('.item-button').forEach(item => {
+      item.addEventListener('click', () => {
+        this.delete(item.id);
+      });
+    });
+
+    // add item button
+    this.shadowRoot.getElementById('add-item').addEventListener('click', () => {
+      this.add_item(this.shadowRoot.querySelector('#new-item').value);
+      this.shadowRoot.querySelector('#new-item').value = '';
+    });
+  }
+
+  delete(id) {
+    this.shadowRoot.getElementById(id).remove();
+  }
+
+  add_item(text) {
+    if (text !== '') {
+      // div item container
+      this.item = document.createElement('div');
+      this.item.classList.add('item');
+      this.item.id = `${this.item_count}-todo`;
+      // div p item
+      this.p = document.createElement('p');
+      this.p.classList.add("prompt-item");
+      this.p.innerHTML = text;
+      // button deleter
+      this.button = document.createElement('button');
+      this.button.classList.add('item-button');
+      this.button.id = `${this.item_count}-todo`;
+      this.button.innerHTML = 'Delete';
+      this.button.addEventListener('click', () => {
+        this.delete(this.button.id);
+      });
+      // apend nodes
+      this.item.appendChild(this.p);
+      this.item.appendChild(this.button);
+      this.shadowRoot.querySelector('.items').appendChild(this.item);
+      // increase item count
+      this.item_count++;
+    } else { alert("No trates de agregar un item vacio"); }
   }
 
 }
@@ -40,23 +86,23 @@ todo_list_template.innerHTML = /* html */`
       <slot id="title" name="title">ToDo-List</slot>
     </h1>
     <div class="items">
-      <div class="item">
+      <div class="item" id="1-todo">
         <p class="prompt-item">
           <slot id="item1" name="item1">First</slot>
         </p>
-        <button id="delete-item" class="item-button" type="button">Delete</button>
+        <button id="1-todo" class="item-button" type="button">Delete</button>
       </div>
-      <div class="item">
+      <div class="item" id="2-todo">
         <p class="prompt-item">
           <slot id="item2" name="item2">Second</slot>
         </p>
-        <button id="delete-item" class="item-button" type="button">Delete</button>
+        <button id="2-todo" class="item-button" type="button">Delete</button>
       </div>
-      <div class="item">
+      <div class="item" id="3-todo">
         <p class="prompt-item">
           <slot id="item3" name="item3">Third</slot>
         </p>
-        <button id="delete-item" class="item-button" type="button">Delete</button>
+        <button id="3-todo" class="item-button" type="button">Delete</button>
       </div>
     </div>
     <div class="add-div">
