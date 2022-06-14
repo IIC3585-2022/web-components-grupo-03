@@ -6,11 +6,28 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/x-icon" href="public/favicon.ico">
+  <link rel="stylesheet" href="assets/global.css">
   <title>Web components</title>
-  <script defer src="src/index.js"></script>
+  <script defer src="src/components/SellItem.js"></script>
 </head>
 
 <body>
+  <div class="grid">
+    <sell-item
+      title="Juguete para perros"
+      price="13900"
+      discount="10"
+      rating="4.9"
+      imgSrc="https://target.scene7.com/is/image/Target/GUEST_55a2a456-4c41-44ce-b226-6bce34d8025c?wid=488&hei=488&fmt=pjpeg">
+    </sell-item>
+    <sell-item
+      title="Perfume Mía de Esika"
+      price="179000"
+      discount="20"
+      rating="3.7"
+      imgSrc="https://esika.tiendabelcorp.com/cdn-cgi/image/width=1200,fit=contain,f=auto/https://belc-bigdata-mdm-images-prd.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200095903-FotoFondoBlanco.jpg">
+    </sell-item>
+  </div>
 
 </body>
 
