@@ -69,9 +69,8 @@ template.innerHTML = /* html */`
     border: 1px solid lightgray;
     border-radius: 8px;
     font-size: 12px;
-    height: 45ch;
+    min-height: 45ch;
     margin: 0rem;
-    overflow-y: scroll;
     padding: 1em 1em 0.25em;
     transition: 100ms linear;
     width: 25ch;
@@ -102,7 +101,7 @@ template.innerHTML = /* html */`
     align-items: center;
     display: flex;
     justify-content: space-between;
-    margin-bottom: 1em;
+    margin-bottom: 0.75em;
   }
 
   .sale-price {
