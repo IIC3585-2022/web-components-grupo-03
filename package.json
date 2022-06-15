@@ -4,7 +4,7 @@
   "description": "app de juguete para aprender web components",
   "main": "index.js",
   "scripts": {
-    "start": "npx serve",
+    "start": "parcel index.html",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --fix src/"
   },
@@ -28,6 +28,7 @@
     "lit": "^2.2.5"
   },
   "devDependencies": {
-    "eslint": "^8.17.0"
+    "eslint": "^8.17.0",
+    "parcel": "^2.6.0"
   }
 }
