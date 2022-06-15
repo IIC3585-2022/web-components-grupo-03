@@ -23,17 +23,20 @@ class TodoListLit extends LitElement {
 
   firstUpdated() {
     this.todo_list = [this.item1, this.item2, this.item3];
+    this.update(this.todo_list);
   }
 
   remove_item(idx) {
     this.todo_list.splice(idx, 1);
+    this.update(this.todo_list);
   }
 
   add_item() {
-    console.log(this.input);
-    this.todo_list.push(this.input);
-    console.log(this.todo_list);
-    this.requestUpdate('value', "");
+    if (this.input !== '') {
+      this.todo_list.push(this.input);
+      this.input = "";
+      this.update(this.input);
+    } else { alert("No trates de agregar un item vacio"); }
   }
 
   static get styles() {
@@ -148,13 +151,13 @@ class TodoListLit extends LitElement {
     ${this.title}
     </h1>
     <div class="items">
-    ${repeat(this.todo_list, (item) => item, (item, idx) => html`
+    ${repeat(this.todo_list, (item) => item, (item, index) => html`
       <div class="item">
         <div class="prompt-item">
           ${item}
         </div>
         <div class="item-button">
-          <button @click="${() => this.remove_item(idx)}">Delete</button>
+          <button @click="${() => this.remove_item(index)}">Delete</button>
         </div>
       </div>
     `)}
