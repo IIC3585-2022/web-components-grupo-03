@@ -8,7 +8,8 @@
   <link rel="icon" type="image/x-icon" href="public/favicon.ico">
   <link rel="stylesheet" href="assets/global.css">
   <title>Web components</title>
-  <script defer src="src/components/SellItem.js"></script>
+  <script defer type="module" src="src/components/SellItem.js"></script>
+  <script defer type="module" src="src/components/lit/LitSellItem.js"></script>
 </head>
 
 <body>
@@ -20,6 +21,13 @@
       rating="4.9"
       imgSrc="https://target.scene7.com/is/image/Target/GUEST_55a2a456-4c41-44ce-b226-6bce34d8025c?wid=488&hei=488&fmt=pjpeg">
     </sell-item>
+    <lit-sell-item
+      title="Juguete para Lits"
+      price="13900"
+      discount="10"
+      rating="4.9"
+      imgSrc="https://target.scene7.com/is/image/Target/GUEST_55a2a456-4c41-44ce-b226-6bce34d8025c?wid=488&hei=488&fmt=pjpeg">
+    </lit-sell-item>
     <sell-item
       title="Perfume Mía de Esika"
       price="179000"
@@ -28,6 +36,7 @@
       imgSrc="https://esika.tiendabelcorp.com/cdn-cgi/image/width=1200,fit=contain,f=auto/https://belc-bigdata-mdm-images-prd.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200095903-FotoFondoBlanco.jpg">
     </sell-item>
   </div>
+
 
 </body>
 
