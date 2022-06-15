@@ -10,6 +10,12 @@ body {
   display: grid;
   gap: 2rem;
   grid-template-columns: auto auto auto;
+  margin: auto;
   padding: 1rem;
   width: fit-content;
+}
+
+.group {
+  display: flex;
+  justify-content: space-between;
 }
