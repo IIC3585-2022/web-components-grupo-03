@@ -58,7 +58,7 @@ class TodoList extends HTMLElement {
       this.item.id = `${this.item_count}-todo`;
       // div p item
       this.p = document.createElement('p');
-      this.p.classList.add("prompt-item");
+      this.p.classList.add('prompt-item');
       this.p.innerHTML = text;
       // button deleter
       this.button = document.createElement('button');
@@ -74,7 +74,7 @@ class TodoList extends HTMLElement {
       this.shadowRoot.querySelector('.items').appendChild(this.item);
       // increase item count
       this.item_count++;
-    } else { alert("No trates de agregar un item vacio"); }
+    } else { alert('No trates de agregar un item vacio'); }
   }
 
 }

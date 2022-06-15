@@ -18,7 +18,7 @@ class TodoListLit extends LitElement {
     this.title = 'Todo List';
     this.prompt = 'Add Task';
     this.todo_list = [];
-    this.input = "";
+    this.input = '';
   }
 
   firstUpdated() {
@@ -34,9 +34,9 @@ class TodoListLit extends LitElement {
   add_item() {
     if (this.input !== '') {
       this.todo_list.push(this.input);
-      this.input = "";
+      this.input = '';
       this.update(this.input);
-    } else { alert("No trates de agregar un item vacio"); }
+    } else { alert('No trates de agregar un item vacio'); }
   }
 
   static get styles() {
