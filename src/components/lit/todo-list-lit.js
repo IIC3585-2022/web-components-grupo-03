@@ -1,4 +1,4 @@
-import { html, css, LitElement } from 'lit';
+import { LitElement, html, css } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 
 class TodoListLit extends LitElement {
@@ -9,55 +9,35 @@ class TodoListLit extends LitElement {
       item1: { type: String },
       item2: { type: String },
       item3: { type: String },
-      promt: { type: String },
+      prompt: { type: String },
     };
   }
 
   constructor() {
     super();
     this.title = 'Todo List';
-    this.item1 = '';
-    this.item2 = '';
-    this.item3 = '';
-    this.promt = 'Add Task';
-    this.item_count = 4;
+    this.prompt = 'Add Task';
+    this.todo_list = [];
+    this.input = "";
   }
 
-  render() {
-    return html`
-    <div class="container">
-    <h1 class=title>
-      TODOLIST
-    </h1>
-    <div class="items">
-      <div class="item" id="1-todo">
-        <p class="prompt-item">
-          FIRST ITEM
-        </p>
-        <button id="1-todo" class="item-button" type="button">Delete</button>
-      </div>
-      <div class="item" id="2-todo">
-        <p class="prompt-item">
-          SECOND ITEM
-        </p>
-        <button id="2-todo" class="item-button" type="button">Delete</button>
-      </div>
-      <div class="item" id="3-todo">
-        <p class="prompt-item">
-          THIRD ITEM
-        </p>
-        <button id="3-todo" class="item-button" type="button">Delete</button>
-      </div>
-    </div>
-    <div class="add-div">
-      <h3 class="prompt-title" >
-        NEW ITEM:
-      </h3>
-      <input type="text" id="new-item" placeholder="new-item" class="add-item-input" >
-      <button id="add-item" class="add-button" type="button">Add</button>
-    </div>
-  </div>
-  <style>
+  firstUpdated() {
+    this.todo_list = [this.item1, this.item2, this.item3];
+  }
+
+  remove_item(idx) {
+    this.todo_list.splice(idx, 1);
+  }
+
+  add_item() {
+    console.log(this.input);
+    this.todo_list.push(this.input);
+    console.log(this.todo_list);
+    this.requestUpdate('value', "");
+  }
+
+  static get styles() {
+    return css`
     .container {
       background-color: white;
       border: 1px solid lightgray;
@@ -158,9 +138,35 @@ class TodoListLit extends LitElement {
       margin: 0;
       width: 20%;
       word-wrap: break-word;
-    }
-  </style>
-    `;
+    }`;
+  }
+
+  render() {
+    return html`
+    <div class="container">
+    <h1 class=title>
+    ${this.title}
+    </h1>
+    <div class="items">
+    ${repeat(this.todo_list, (item) => item, (item, idx) => html`
+      <div class="item">
+        <div class="prompt-item">
+          ${item}
+        </div>
+        <div class="item-button">
+          <button @click="${() => this.remove_item(idx)}">Delete</button>
+        </div>
+      </div>
+    `)}
+    </div>
+    <div class="add-div">
+      <h3 class="prompt-title" >
+        ${this.prompt}:
+      </h3>
+      <input type="text" value="${this.input}" placeholder="new-item" class="add-item-input" @change=${e => this.input = e.target.value}>
+      <button @click="${this.add_item}" id="add-item" class="add-button" type="button">Add</button>
+    </div>
+  </div>`;
   }
 
 }
